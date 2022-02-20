@@ -1,5 +1,7 @@
 # Share my photos
 
+This file's purpose is to show to install the app. To know more about the framworks used in this project go to [Stack tech](Stack_teck.md)
+
 ## Front-end
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
