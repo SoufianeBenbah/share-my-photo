@@ -1,4 +1,13 @@
 .card {
-  margin: 0 auto;
-  max-width: 21rem;
+  max-width: 25rem;
+  margin : 0 auto;
 }
+
+.container {
+  max-width: 25rem;
+}
+
+.diaporama{
+  margin: 0 auto
+}
+

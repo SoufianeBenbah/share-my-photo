@@ -8,17 +8,20 @@
         class="form-control"
         (change)="ProcessFile($event)"
         multiple>
+
     <hr>
     <label>Description :</label>
     <textarea class="form-control"
               placeholder="Tell us about your journey..."
               name="comment"
               [(ngModel)]="comment"
+
     ></textarea>
 
 
   </div>
   <button type="button" class="btn btn-success"
           (click)="onSubmit()">Submit</button>
+
 
 </form>

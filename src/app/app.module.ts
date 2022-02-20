@@ -10,10 +10,15 @@ import {PostService} from "./services/post.service";
 import { HttpClientModule} from "@angular/common/http";
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from "@angular/forms";
+import { DiaporamaModalComponent } from './diaporama-modal/diaporama-modal.component';
+import { HomeComponent } from './home/home.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 const routes:Routes=[
   {path: 'add', component: AddPictureComponent},
   {path: 'gallery', component: GalleryComponent},
+  {path: 'home', component: HomeComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'  }
 ]
 
 
@@ -24,6 +29,8 @@ const routes:Routes=[
     NavbarComponent,
     AddPictureComponent,
     GalleryComponent,
+    DiaporamaModalComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,8 @@ const routes:Routes=[
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [PostService],
   bootstrap: [AppComponent]

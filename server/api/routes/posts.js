@@ -24,42 +24,48 @@ const upload = multer({storage: storage , fileFilter: fileFilter});
 router.get('/', async(req, res) => {
   try {
     const posts = await Post.find().select("id comment picture");
-    res.status(200).send(posts);
+    res.status(200).json(posts);
   }catch (err){
-    res.status(404).send( err);
+    res.status(404).json( err.message);
   }
 });
 
 router.get('/:comment', async (req,res) => {
   try {
     const posts = await Post.find({ comment: {$regex:`.*${req.params.comment}.*`}});
-    res.status(200).send(posts)
+    res.status(200).json(posts)
   } catch (err) {
-    res.status(404).send(err.message)
+    res.status(404).json(err.message)
   }
 })
 
 router.get('/:id', async (req,res)=>{
   try{
     const post = await Post.findById(req.params.id).select("id comment picture");
-    res.status(200).send(post);
+    res.status(200);
   }catch (err){
-    res.status(404).send(err.message);
+    res.status(404).json(err.message);
   }
 });
 
-router.post('/', upload.single("picture"),async (req, res) => {
+router.post('/', upload.array("picture"),async (req, res) => {
 
-  const post = new Post({
+  const posts = new Post({
     comment: req.body.comment,
-    picture: req.file.path,
+    picture: req.files.path,
   });
 
   try {
-    const newPost = await post.save();
-    res.status(201).send(newPost);
+    for (let file of req.files){
+      const post = new Post({
+        comment: req.body.comment,
+        picture: file.path,
+      })
+      await post.save();
+    }
+    res.status(201).json("Post added successfully !")
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(400).json(err.message);
 
   }
 });
@@ -67,18 +73,18 @@ router.post('/', upload.single("picture"),async (req, res) => {
 router.delete('/:id', async (req,res)=>{
   try{
     const post = await Post.findByIdAndRemove(req.params.id);
-    res.status(200).send(post)
+    res.status(200).json(post)
   }catch (err){
-    res.status(404).send(err.message)
+    res.status(404).json(err.message)
   }
 });
 
 router.delete('/', async (req,res)=>{
   try{
     const post = await Post.deleteMany();
-    res.status(200).send("deleted");
+    res.status(200).json("deleted");
   }catch (err){
-    res.status(500).json({message: err.message})
+    res.status(500).json( err.message);
   }
 });
 
@@ -88,9 +94,9 @@ router.patch('/:id', async (req,res)=>{
       { _id: req.params.id },
       {$set: { comment: req.body.comment } }
       )
-    res.status(200).json({post})
+    res.status(200).json(post);
   } catch(err) {
-    res.status(404).json({message: err.message})
+    res.status(404).json( err.message);
   }
 });
 

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Post } from '../post.model';
-import {ObjectId} from "mongodb";
+import {Post} from "../post.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
+
+  file: File[] | any;
+  comment : string = '';
 
   private baseUrl: string = 'http://localhost:3000/posts/';
 
@@ -17,9 +19,15 @@ export class PostService {
     return this.http.get(this.baseUrl)
   }
 
-  public postPost(file: File, comment: string) : Observable<any>{
+  public getPost(id : string) : Observable<any> {
+    return this.http.get(this.baseUrl+id);
+  }
+
+  public postPost(files: File[], comment: string) : Observable<any>{
     let formParams = new FormData();
-    formParams.append("picture", file);
+    for (let file of files){
+      formParams.append("picture", file)
+    }
     formParams.append("comment", comment);
     return this.http.post(this.baseUrl, formParams);
   }
@@ -34,6 +42,15 @@ export class PostService {
 
   public getByComment(comment : string) : Observable<any> {
     return this.http.get(this.baseUrl+comment)
+  }
+
+  public setter(file : File[], comment: string) : void {
+    this.file = file;
+    this.comment = comment;
+  }
+
+  public getter() : [File[], string]{
+    return [this.file, this.comment];
   }
 
 }
