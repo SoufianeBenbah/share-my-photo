@@ -1,27 +1,38 @@
-# ShareMyPhotos
+# Share my photos
+
+## Front-end
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
 
-## Development server
+### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
+### Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Back-end
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Installation
 
-## Running end-to-end tests
+Navigate to directory `server/` and run ``` npm install ``` to install the dependecies needed for the server to function.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+cd server
+npm install
+```
 
-## Further help
+### Developement server
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `node server.js` or `nodemon server.js` in the `server/` directory for a dev server. The app will automatically reload if you change any of the source files.
+
+## Database
+
+A MongoDB database is used in this project, the url of this DB is hard coded in the server. Please change that to an `.env` file for production.
+The databse's collenctions look like somthing like this, 
+|_id| picture  | comment  |  
+|---|---|---|
+| ObjectId  | Array of string  | The comment of post  | 
+
+
